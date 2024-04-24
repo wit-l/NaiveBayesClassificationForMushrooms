@@ -50,7 +50,7 @@ X = data.iloc[:, 1:]  # DataFrame
 # Labels
 y = data.iloc[:, 0]  # Series
 
-# 分割数据
+# 划分训练集和测试集
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8)
 nb = GaussianNB()
 # training
@@ -59,11 +59,11 @@ nb.fit(X_train, y_train)
 y_predict = nb.predict(X_test)
 cm = confusion_matrix(y_test, y_predict)
 
-# print("前四十五个测试数据的真实类别编号：")
-# print(np.array(y_test)[:45])
+print("前四十五个测试数据的真实类别编号：")
+print(np.array(y_test)[:45])
 
-# print("\n前四十五个测试数据的预测类别编号：")
-# print(y_predict[:45])
+print("\n前四十五个测试数据的预测类别编号：")
+print(y_predict[:45])
 
 # print("confusion matrix:\n", cm)
 # print("混淆矩阵类型:", type(cm))
@@ -83,7 +83,7 @@ print("召回率", recall_rate)
 
 # print(classification_report(y_test, y_predict, target_names=["无毒", "有毒"]))
 
-# print(data.columns[1:])
+print(data.columns[1:])
 user_in_str = input(
     "请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)："
 )
