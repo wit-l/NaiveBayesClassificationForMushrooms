@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 # from IPython.display import display
 
 # LabelEncoder 用于标签编码 例['red', 'green', 'blue'] => [0, 1, 2]
@@ -52,18 +53,26 @@ y = data.iloc[:, 0]  # Series
 
 # 划分训练集和测试集
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8)
-nb = GaussianNB()
-# training
-nb.fit(X_train, y_train)
+# gnb = GaussianNB()
+# # training
+# gnb.fit(X_train, y_train)
+#
+# f = open("dump.txt", "wb")
+# pickle.dump(gnb, f)
+# f.close()
+
+f = open("dump.txt", "rb")
+nb = pickle.load(f)
+f.close()
 
 y_predict = nb.predict(X_test)
 cm = confusion_matrix(y_test, y_predict)
 
-print("前四十五个测试数据的真实类别编号：")
-print(np.array(y_test)[:45])
-
-print("\n前四十五个测试数据的预测类别编号：")
-print(y_predict[:45])
+# print("前四十五个测试数据的真实类别编号：")
+# print(np.array(y_test)[:45])
+#
+# print("\n前四十五个测试数据的预测类别编号：")
+# print(y_predict[:45])
 
 # print("confusion matrix:\n", cm)
 # print("混淆矩阵类型:", type(cm))
