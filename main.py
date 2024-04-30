@@ -1,9 +1,11 @@
+#!/opt/anaconda3/bin/python3
 import pandas as pd
 import pickle
 from train import train_model
 from typing import List, Tuple
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import LabelEncoder
+from flask import Flask, request, render_template
 
 
 def load_encoders_model(
@@ -15,7 +17,24 @@ def load_encoders_model(
     return les, model
 
 
+app = Flask(__name__)
+
+
+def process_input(user_input) -> str:
+    return "result of handling:" + user_input
+
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    if request.method == "POST":
+        user_input = request.form.get("user_input")
+        result = process_input(user_input)
+        return result
+    return render_template("form.html", columns=columns)
+
+
 if __name__ == "__main__":
+    app.run()
     # read column names
     file = "mushrooms.csv"
     columns = []
@@ -46,7 +65,6 @@ if __name__ == "__main__":
     )
 
     X = pd.DataFrame([user_in_str.split(",")], columns=columns)
-    # print(X_te)
 
     i = 1
     for col in X.columns:

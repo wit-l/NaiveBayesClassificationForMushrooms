@@ -14,19 +14,15 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import (
     # classification_report,
     confusion_matrix,
+    # accuracy_score,
+    # precision_score,
+    # recall_score,
 )
 
 
 def train_model():
     file = "mushrooms.csv"
-    # try:
     data = pd.read_csv(file)
-    # except FileNotFoundError:
-    #     print("Can not open %s." % (file))
-    #     exit(-1)
-    # except Exception as e:
-    #     print("发生预期外的错误, 原因：", e.__cause__)
-    #     exit(-1)
 
     # print("读入csv后，存放samples的data中前5行内容：")
     # display(data.head())
@@ -86,15 +82,17 @@ def train_model():
     # print("confusion matrix:\n", cm)
     # print("混淆矩阵类型:", type(cm))
 
-    tp = cm[0, 0]  # 真阳
+    # [[TN, FP],
+    #  [FN, TP]]
+    tp = cm[1, 1]  # 真阳
     fp = cm[0, 1]  # 假阳
     fn = cm[1, 0]  # 假阴
-    tn = cm[1, 1]  # 真阴
+    tn = cm[0, 0]  # 真阴
 
     sum = tp + fp + fn + tn
     accuracy_rate = (tp + tn) / sum
     precision_rate = tp / (tp + fp)
-    recall_rate = tp / (tp + tn)
+    recall_rate = tp / (tp + fn)
 
     # accuracy_rate = (tp + tn) / np.sum(cm)
     # precision_rate = tp / np.sum(cm, 1)[0]
@@ -103,6 +101,10 @@ def train_model():
     print("准确率", accuracy_rate)
     print("精确率", precision_rate)
     print("召回率", recall_rate)
+
+    # print("准确率", accuracy_score(y_test, y_predict))
+    # print("精确率", precision_score(y_test, y_predict))
+    # print("召回率", recall_score(y_test, y_predict))
 
 
 # print(classification_report(y_test, y_predict, target_names=["无毒", "有毒"]))
