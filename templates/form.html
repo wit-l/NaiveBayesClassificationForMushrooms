@@ -4,13 +4,17 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{ url_for('static', filename='styles.css') }}"
+      href="{{ url_for('static', filename='style.css') }}"
     />
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <p>Welcome to my website.</p>
-    <div>{{columns}}</div>
+    <h1 style="text-align: center">基于B/S的野外蘑菇贝叶斯分类器系统</h1>
+
+    <div>
+      {% for item in columns %}
+      <span>{{item}}</span>
+      {% endfor %}
+    </div>
     <form method="POST">
       请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)：<input
         type="text"
