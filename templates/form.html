@@ -9,18 +9,33 @@
   </head>
   <body>
     <h1 style="text-align: center">基于B/S的野外蘑菇贝叶斯分类器系统</h1>
-
+    <h2>蘑菇特征：</h2>
     <div>
       {% for item in columns %}
       <span>{{item}}</span>
       {% endfor %}
     </div>
-    <form method="POST">
-      请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)：<input
-        type="text"
-        name="user_input"
-      />
+    <form action="/" method="POST">
+      请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)：
+      <input type="text" name="user_input" />
       <input type="submit" value="提交" />
+      <span>预测结果：</span>
+      {% if result == 1 %}
+      <span>有毒</span>
+      {% elif result == 0 %}
+      <span>无毒</span>
+      {% else %}
+      <span>{{result}}</span>
+      {% endif %}
     </form>
+    <form action="/train" method="POST">
+      <button>训练模型</button>
+    </form>
+    {% if accuracy_score != 0 %}
+    <h2>模型数据：</h2>
+    <div>准确率：<span>{{accuracy_score}}</span></div>
+    <div>精确率：<span>{{precision_score}}</span></div>
+    <div>召回率：<span>{{recall_score}}</span></div>
+    {% endif %}
   </body>
 </html>

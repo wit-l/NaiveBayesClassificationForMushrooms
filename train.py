@@ -20,7 +20,7 @@ from sklearn.metrics import (
 )
 
 
-def train_model():
+def train_model() -> list[float]:
     file = "mushrooms.csv"
     data = pd.read_csv(file)
 
@@ -98,13 +98,14 @@ def train_model():
     # precision_rate = tp / np.sum(cm, 1)[0]
     # recall_rate = tp / np.sum(cm, 0)[0]
 
-    print("准确率", accuracy_rate)
-    print("精确率", precision_rate)
-    print("召回率", recall_rate)
+    # print("准确率", accuracy_rate)
+    # print("精确率", precision_rate)
+    # print("召回率", recall_rate)
 
     # print("准确率", accuracy_score(y_test, y_predict))
     # print("精确率", precision_score(y_test, y_predict))
     # print("召回率", recall_score(y_test, y_predict))
 
+    return [accuracy_rate, precision_rate, recall_rate]
 
-# print(classification_report(y_test, y_predict, target_names=["无毒", "有毒"]))
+    # print(classification_report(y_test, y_predict, target_names=["无毒", "有毒"]))
