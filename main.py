@@ -75,9 +75,12 @@ def index():
 
 @app.route("/train", methods=["POST"])
 def invoke_train():
-    global accuracy_score, precision_score, recall_score
-    accuracy_score, precision_score, recall_score = train_model()
-    return redirect("/")
+    try:
+        global accuracy_score, precision_score, recall_score
+        accuracy_score, precision_score, recall_score = train_model()
+        return redirect("/")
+    except Exception as e:
+        return "发生预期外的错误, 原因：" + str(e.__doc__) + "!!!"
 
 
 if __name__ == "__main__":
