@@ -9,3 +9,7 @@ form {
 input[type="text"] {
   width: 240px;
 }
+
+h1 {
+  text-align: center;
+}

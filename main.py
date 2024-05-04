@@ -21,6 +21,7 @@ app = Flask(__name__)
 accuracy_score = 0.0
 precision_score = 0.0
 recall_score = 0.0
+columns = []
 
 
 def process_input(user_input: str, columns: list[str]) -> str:
@@ -31,7 +32,7 @@ def process_input(user_input: str, columns: list[str]) -> str:
         accuracy_score, precision_score, recall_score = train_model()
         labelEncoders, nb = load_encoders_model("encoders.txt", "model.txt")
     except Exception as e:
-        return "发生预期外的错误, 原因：" + str(e.__cause__)
+        return "发生预期外的错误, 原因：" + str(e.__doc__) + "!!!"
     X = pd.DataFrame([user_input.split(",")], columns=columns)
     i = 1
     for col in X.columns:
@@ -43,22 +44,22 @@ def process_input(user_input: str, columns: list[str]) -> str:
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # read column names
-    file = "mushrooms.csv"
-    columns = []
     result = ""
-
-    try:
-        with open(file, "r") as f:
-            columns = f.readline().strip().split(",")[1:]
-    except FileNotFoundError:
-        return "Can not open " + file
-    except Exception as e:
-        return "发生预期外的错误, 原因：" + str(e.__cause__)
+    global columns
+    if columns.__len__() == 0:
+        # read column names
+        file = "mushrooms.csv"
+        try:
+            with open(file, "r") as f:
+                columns = f.readline().strip().split(",")[1:]
+        except FileNotFoundError:
+            result = "Can not open " + file + "!!!"
+        except Exception as e:
+            result = "发生预期外的错误, 原因：" + str(e.__doc__) + "!!!"
 
     if request.method == "POST":
         user_input = request.form["user_input"]
-        if user_input == "":
+        if user_input == "" or result not in [0, 1, ""]:
             return redirect("/")
         result = process_input(str(user_input), columns)
 

@@ -8,29 +8,44 @@
     />
   </head>
   <body>
-    <h1 style="text-align: center">基于B/S的野外蘑菇贝叶斯分类器系统</h1>
+    <h1>基于B/S的野外蘑菇贝叶斯分类器系统</h1>
+    {% if columns.__len__() != 0 %}
     <h2>蘑菇特征：</h2>
     <div>
       {% for item in columns %}
       <span>{{item}}</span>
       {% endfor %}
     </div>
+    {% endif %}
     <form action="/" method="POST">
-      请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)：
+      <lable for="user_input"
+        >请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)：</lable
+      >
       <input type="text" name="user_input" />
       <input type="submit" value="提交" />
-      <span>预测结果：</span>
-      {% if result == 1 %}
-      <span>有毒</span>
-      {% elif result == 0 %}
-      <span>无毒</span>
-      {% else %}
-      <span>{{result}}</span>
-      {% endif %}
     </form>
+    {% if result in [0, 1] %}
+    <span><b>预测结果：</b></span>
+    {% endif %}
+    <!-- -->
+
+    {% if result == 1 %}
+    <span>有毒</span>
+    {% elif result == 0 %}
+    <span>无毒</span>
+    {% else %}
+    <div></div>
+    <h2 style="text-align: center; color: red">{{result}}</h2>
+    {% endif %}
+
+    <!--  -->
+    {% if result in [0, 1, ''] %}
     <form action="/train" method="POST">
-      <button>训练模型</button>
+      <button>训练并测试模型</button>
     </form>
+    {% endif %}
+    <!--  -->
+
     {% if accuracy_score != 0 %}
     <h2>模型数据：</h2>
     <div>准确率：<span>{{accuracy_score}}</span></div>
