@@ -1,11 +1,11 @@
 #!/opt/anaconda3/bin/python3
 import pandas as pd
 import pickle
-from train import train_model
 from typing import List, Tuple
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import LabelEncoder
-from flask import Flask, request, render_template, redirect
+from flask import Flask, redirect, render_template, request
+from train import train_model
 
 
 def load_encoders_model(
@@ -32,8 +32,8 @@ def process_input(user_input: str, columns: list[str]) -> str:
         accuracy_score, precision_score, recall_score = train_model()
         labelEncoders, nb = load_encoders_model("encoders.txt", "model.txt")
     except Exception as e:
-        return "发生预期外的错误, 原因：" + str(e.__doc__) + "!!!"
-    X = pd.DataFrame([user_input.split(",")], columns=columns)
+        return "发生预期外的错误, 原因：" + str(e.__doc__) + "！！！"
+    X = pd.DataFrame([user_input.split(",")], columns=columns)  # type: ignore
     i = 1
     for col in X.columns:
         X[col] = labelEncoders[i].transform(X[col])
@@ -55,13 +55,18 @@ def index():
         except FileNotFoundError:
             result = "Can not open " + file + "!!!"
         except Exception as e:
-            result = "发生预期外的错误, 原因：" + str(e.__doc__) + "!!!"
+            result = "发生预期外的错误, 原因：" + str(e.__doc__) + "！！！"
 
     if request.method == "POST":
         user_input = request.form["user_input"]
-        if user_input == "" or result not in [0, 1, ""]:
+        if user_input == "" or result != "":
             return redirect("/")
-        result = process_input(str(user_input), columns)
+        try:
+            result = process_input(str(user_input), columns)
+        except ValueError:
+            result = "输入格式不正确，请严格按照以上顺序输入完整！！！"
+        except Exception as e:
+            result = "发生预期外的错误, 原因：" + str(e.__doc__) + "！！！"
 
     return render_template(
         "form.html",
