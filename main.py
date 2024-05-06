@@ -1,4 +1,4 @@
-#!/opt/anaconda3/bin/python3
+#!/opt/anaconda3/envs/sklearn/bin/python3
 import pandas as pd
 import pickle
 from typing import List, Tuple
