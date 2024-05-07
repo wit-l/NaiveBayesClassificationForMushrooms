@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import pickle
 # from IPython.display import display
 
@@ -6,7 +7,7 @@ import pickle
 from sklearn.preprocessing import LabelEncoder
 
 # train_test_split 分割训练集和测试集
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 
 # 高斯朴素贝叶斯
 from sklearn.naive_bayes import GaussianNB
@@ -60,8 +61,16 @@ def train_model() -> list[float]:
     y = data.iloc[:, 0]  # Series
 
     # 划分训练集和测试集
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8)
-    nb = GaussianNB()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7)
+    # nb = GaussianNB()
+    nb = GaussianNB(var_smoothing=2.310129700083158e-4)
+
+    # 超参数调优
+    # param_grid = {"var_smoothing": np.logspace(0, -9, num=100)}
+    # grid = GridSearchCV(nb, param_grid, cv=5)
+    # grid.fit(X_train, y_train)
+    # print("最优参数：", grid.best_params_)
+    # print("最佳交叉验证得分：{:.2f}".format(grid.best_score_))
 
     # training
     nb.fit(X_train, y_train)
