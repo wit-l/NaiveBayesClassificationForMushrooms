@@ -27,16 +27,16 @@ columns = []
 def process_input(user_input: str, columns: list[str]) -> str:
     global accuracy_score, precision_score, recall_score
     try:
-        labelEncoders, nb = load_encoders_model("encoders.txt", "model.txt")
+        label_encoders, nb = load_encoders_model("encoders.txt", "model.txt")
     except FileNotFoundError:
         accuracy_score, precision_score, recall_score = train_model()
-        labelEncoders, nb = load_encoders_model("encoders.txt", "model.txt")
+        label_encoders, nb = load_encoders_model("encoders.txt", "model.txt")
     except Exception as e:
         return "发生预期外的错误, 原因：" + str(e.__doc__) + "！！！"
     X = pd.DataFrame([user_input.split(",")], columns=columns)  # type: ignore
     i = 1
     for col in X.columns:
-        X[col] = labelEncoders[i].transform(X[col])
+        X[col] = label_encoders[i].transform(X[col])
         i += 1
     y_pred = nb.predict(X)[0]
     return y_pred

@@ -43,14 +43,14 @@ def train_model() -> list[float]:
 
     # 编码方案二:
     # 保存编码方案，后续输入特征时需要使用同一套编码方案
-    labelEncoders = [LabelEncoder() for _ in range(data.shape[1])]
+    label_encoders = [LabelEncoder() for _ in range(data.shape[1])]
     i = 0
     # print(type(data.columns))
     for col in data.columns:
-        data[col] = labelEncoders[i].fit_transform(data[col])
+        data[col] = label_encoders[i].fit_transform(data[col])
         i = i + 1
     with open("encoders.txt", "wb") as f:
-        pickle.dump(labelEncoders, f)
+        pickle.dump(label_encoders, f)
 
     # print("对属性值和类别编码后得到的数据：")
     # display(data.head())
