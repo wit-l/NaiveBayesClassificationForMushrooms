@@ -57,8 +57,13 @@ def train_model() -> list[float]:
 
     # samples
     X = data.iloc[:, 1:]  # DataFrame
+    # 也可通过drop去掉第一列：
+    # X = data.drop("class", axis=1)
+
     # Labels
     y = data.iloc[:, 0]  # Series
+    # 也可通过索引取出第一列：
+    # y = data["class"]
 
     # 划分训练集和测试集
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7)
