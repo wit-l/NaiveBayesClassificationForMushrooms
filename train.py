@@ -1,13 +1,19 @@
 import pandas as pd
-import numpy as np
+
+# import numpy as np
+
 import pickle
+
 # from IPython.display import display
 
 # LabelEncoder 用于标签编码 例['red', 'green', 'blue'] => [0, 1, 2]
 from sklearn.preprocessing import LabelEncoder
 
 # train_test_split 分割训练集和测试集
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import (
+    train_test_split,
+    # GridSearchCV
+)
 
 # 高斯朴素贝叶斯
 from sklearn.naive_bayes import GaussianNB
