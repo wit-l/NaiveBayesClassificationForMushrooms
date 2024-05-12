@@ -2,6 +2,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
+from skopt import BayesSearchCV
+from skopt.space import Real
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
@@ -47,7 +49,7 @@ accuracy_gnb = accuracy_score(y_test, y_pred_gnb)
 print("Accuracy of Gaussian Naive Bayes:", accuracy_gnb)
 
 # 创建多项式朴素贝叶斯分类器
-mnb = MultinomialNB(alpha=0.01)
+mnb = MultinomialNB(alpha=1.768940884384682e-2)
 mnb.fit(X_train, y_train)
 y_pred_mnb = mnb.predict(X_test)
 accuracy_mnb = accuracy_score(y_test, y_pred_mnb)
@@ -63,19 +65,19 @@ print("Accuracy of MLP Classifier:", accuracy_mlp)
 print("\n超参数调优")
 print("\n高斯朴素贝叶斯模型")
 param_grid = {"var_smoothing": np.logspace(0, -9, num=100)}
-gnb_ = GaussianNB()
-grid_search_gnb = GridSearchCV(gnb_, param_grid, cv=5)
+grid_search_gnb = GridSearchCV(GaussianNB(), param_grid, cv=5)
 grid_search_gnb.fit(X_train, y_train)
 print("最优参数：", grid_search_gnb.best_params_)
 print("最佳交叉验证得分：{:.2f}".format(grid_search_gnb.best_score_))
 
 print("\n多项式朴素贝叶斯模型")
-param_grid = {"alpha": [0.01, 0.1, 1.0, 10.0]}
-mnb_ = MultinomialNB()
-grid_search_mnb = GridSearchCV(mnb_, param_grid, cv=5, scoring="accuracy")
-grid_search_mnb.fit(X_train, y_train)
-print("最优参数：", grid_search_mnb.best_params_)
-print("最佳交叉验证得分：{:.2f}".format(grid_search_mnb.best_score_))
+search_spaces = {"alpha": Real(1e-6, 100.0, "log-uniform")}
+mn_bayes_search = BayesSearchCV(
+    MultinomialNB(), search_spaces, n_iter=32, random_state=0, cv=5
+)
+mn_bayes_search.fit(X_train, y_train)
+print("最优参数：", mn_bayes_search.best_params_)
+print("最佳模型得分：{:.2f}".format(mn_bayes_search.best_score_))
 
 while True:
     print("\n-----------通过手动输入样本特征测试个模型的输出结果---------------")
