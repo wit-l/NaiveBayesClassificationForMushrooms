@@ -28,10 +28,10 @@ for col in data.columns[1:]:
 X = data.drop("class", axis=1)
 y = data["class"].map({"p": 1, "e": 0})  # type:ignore
 
-print(X)
-print(type(X), X.shape)
-print(y)
-print(type(y), y.shape)
+# print(X)
+# print(type(X), X.shape)
+# print(y)
+# print(type(y), y.shape)
 
 # 划分数据集
 X_train, X_test, y_train, y_test = train_test_split(
@@ -63,16 +63,16 @@ print("Accuracy of MLP Classifier:", accuracy_mlp)
 print("\n超参数调优")
 print("\n高斯朴素贝叶斯模型")
 param_grid = {"var_smoothing": np.logspace(0, -9, num=100)}
-gnb_optimize = GaussianNB()
-grid_search_gnb = GridSearchCV(gnb_optimize, param_grid, cv=5)
+gnb_ = GaussianNB()
+grid_search_gnb = GridSearchCV(gnb_, param_grid, cv=5)
 grid_search_gnb.fit(X_train, y_train)
 print("最优参数：", grid_search_gnb.best_params_)
 print("最佳交叉验证得分：{:.2f}".format(grid_search_gnb.best_score_))
 
 print("\n多项式朴素贝叶斯模型")
 param_grid = {"alpha": [0.01, 0.1, 1.0, 10.0]}
-mnb_optimize = MultinomialNB()
-grid_search_mnb = GridSearchCV(mnb_optimize, param_grid, cv=5, scoring="accuracy")
+mnb_ = MultinomialNB()
+grid_search_mnb = GridSearchCV(mnb_, param_grid, cv=5, scoring="accuracy")
 grid_search_mnb.fit(X_train, y_train)
 print("最优参数：", grid_search_mnb.best_params_)
 print("最佳交叉验证得分：{:.2f}".format(grid_search_mnb.best_score_))
