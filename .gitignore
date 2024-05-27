@@ -2,3 +2,4 @@ demo.*
 encoders.txt
 model.txt
 __pycache__
+.vscode
