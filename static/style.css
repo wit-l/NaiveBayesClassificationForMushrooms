@@ -1,3 +1,9 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: lightblue;
 }
@@ -12,4 +18,23 @@ input[type="text"] {
 
 h1 {
   text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.download {
+  display: block;
+  width: 140px;
+  height: 30px;
+  margin-top: 15px;
+  line-height: 30px;
+  text-align: center;
+  background-color: #fff;
+  color: black;
+}
+
+.download:hover {
+  border: 1px solid blue;
 }

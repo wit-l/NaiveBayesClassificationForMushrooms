@@ -45,6 +45,13 @@
     <div></div>
     <h2 style="text-align: center; color: red">{{result}}</h2>
     {% endif %}
+    <!--  -->
+
+    {% if download_result_file == True %}
+    <br />
+    <a class="download" href="/download/result.txt">下载分类结果</a>
+    <br />
+    {% endif %}
 
     <!--  -->
     {% if result in [0, 1, ''] %}
