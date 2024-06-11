@@ -58,10 +58,26 @@ def index():
             result = "发生预期外的错误, 原因：" + str(e.__doc__) + "！！！"
 
     if request.method == "POST":
-        user_input = request.form["user_input"]
+        user_input = request.form["sample_text"]
+        file = request.files["sample_file"]
+        if file.filename != "":
+            with open("result.txt", "w", encoding="utf-8") as result_file:
+                for line in file.stream:
+                    # print(line.decode().strip())
+                    result = process_input(line.decode().strip(), columns)
+                    if result == 0:
+                        result = str("无毒")
+                    elif result == 1:
+                        result = str("有毒")
+                    result_file.write(result)
+                    result_file.write("\n")
+                    # print(result)
+            return redirect("/")
+
         # 输入为空，或者未成功读取特征标签(result中含有报错信息)
         if user_input == "" or result != "":
             return redirect("/")
+
         try:
             result = process_input(str(user_input), columns)
         except ValueError:

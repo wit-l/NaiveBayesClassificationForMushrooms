@@ -7,6 +7,7 @@
       href="{{ url_for('static', filename='style.css') }}"
     />
   </head>
+
   <body>
     <h1>基于B/S的野外蘑菇贝叶斯分类器系统</h1>
 
@@ -18,11 +19,14 @@
       {% endfor %}
     </div>
 
-    <form action="/" method="POST">
-      <lable for="user_input"
+    <form action="/" method="POST" enctype="multipart/form-data">
+      <lable
         >请输入蘑菇的各个特征值(按照以上特征的顺序输入，并用','分隔各个特征的值)：</lable
       >
-      <input type="text" name="user_input" />
+      <input type="text" name="sample_text" />
+
+      或者上传存有蘑菇特征的文件：
+      <input type="file" name="sample_file" />
       <input type="submit" value="提交" />
     </form>
     {% endif %}
