@@ -119,7 +119,7 @@ def invoke_train():
         return render_template(
             "form.html",
             columns=columns,
-            result=result,
+            result="",
             download_result_file=download_result_file,
             accuracy_score=accuracy_score,
             precision_score=precision_score,
