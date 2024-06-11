@@ -1,0 +1,9 @@
+k,s,n,f,n,a,c,b,n,e,?,s,s,o,o,p,n,o,p,o,v,l
+x,s,e,f,f,f,c,n,b,t,?,k,s,w,p,p,w,o,e,w,v,p
+k,s,n,f,n,a,c,b,n,e,?,s,s,o,o,p,o,o,p,n,v,l
+k,y,e,f,f,f,c,n,b,t,?,k,k,w,p,p,w,o,e,w,v,d
+k,s,n,f,f,f,c,n,b,t,?,k,s,p,p,p,w,o,e,w,v,d
+f,y,e,t,n,f,c,b,n,t,b,s,s,p,w,p,w,o,p,k,y,d
+f,y,e,t,n,f,c,b,n,t,b,s,s,g,g,p,w,o,p,k,v,d
+x,s,g,t,f,f,c,b,p,t,b,f,s,w,w,p,w,o,p,h,s,u
+f,y,g,f,f,f,c,b,g,e,b,k,k,p,n,p,w,o,l,h,y,d
