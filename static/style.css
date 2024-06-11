@@ -37,4 +37,5 @@ a {
 
 .download:hover {
   border: 1px solid blue;
+  background-color: cyan;
 }
