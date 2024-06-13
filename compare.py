@@ -38,7 +38,7 @@ y = data["class"].map({"p": 1, "e": 0})  # type:ignore
 
 # 划分数据集
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.3, random_state=42
 )
 
 start_time1 = time.time()
