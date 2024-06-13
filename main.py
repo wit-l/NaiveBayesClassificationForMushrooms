@@ -68,7 +68,7 @@ def index():
 
         if file.filename != "":
             download_result_file = True
-            with open("./result.txt", "w", encoding="utf-8") as result_file:
+            with open("./download/result.txt", "w", encoding="utf-8") as result_file:
                 for line in file.stream:
                     # print(line.decode().strip())
                     try:
@@ -131,7 +131,7 @@ def invoke_train():
 
 @app.route("/download/<filename>", methods=["GET"])
 def download_file(filename):
-    return send_from_directory("./", filename, as_attachment=True)
+    return send_from_directory("./download", filename, as_attachment=True)
 
 
 if __name__ == "__main__":
