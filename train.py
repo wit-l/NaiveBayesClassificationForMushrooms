@@ -99,7 +99,7 @@ def train_model() -> list[float]:
     # print("\n前四十五个测试数据的预测类别编号：")
     # print(y_predict[:45])
 
-    print("confusion matrix:\n", cm)
+    # print("confusion matrix:\n", cm)
     # print("混淆矩阵类型:", type(cm))
 
     # [[TN, FP],
@@ -118,9 +118,9 @@ def train_model() -> list[float]:
     # precision_rate = tp / np.sum(cm, 1)[0]
     # recall_rate = tp / np.sum(cm, 0)[0]
 
-    print("准确率", accuracy_rate)
-    print("精确率", precision_rate)
-    print("召回率", recall_rate)
+    # print("准确率", accuracy_rate)
+    # print("精确率", precision_rate)
+    # print("召回率", recall_rate)
 
     # print("准确率", accuracy_score(y_test, y_predict))
     # print("精确率", precision_score(y_test, y_predict))
